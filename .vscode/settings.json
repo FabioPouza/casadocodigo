@@ -1,6 +1,8 @@
 {
     "vscode-documents-scripting.uploadManually": [
         "cliente-android",
-        "produto"
+        "produto",
+        "cadastra-livros-terminal",
+        "express"
     ]
 }

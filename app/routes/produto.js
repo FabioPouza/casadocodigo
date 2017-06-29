@@ -5,23 +5,20 @@ module.exports = function (app) {
         var produtosDao = new app.infra.ProdutosDao(connection);
 
         produtosDao.lista(function (err, result) {
-            res.render('produtos/lista', { lista: result });
+            res.format({
+                html: function () {
+                    res.render('produtos/lista', { lista: result });
+                },
+                json: function () {
+                    res.json(result);
+                }
+            });
+
         });
         connection.end();
         console.log('listando....');
     });
 
-    app.get('/produtos/json', function (req, res) {
-
-        var connection = app.infra.connectionFactory();
-        var produtosDao = new app.infra.ProdutosDao(connection);
-
-        produtosDao.lista(function (err, result) {
-            res.json(result);
-        });
-        connection.end();
-        console.log('listando....');
-    });
 
     app.get('/produtos/form', function (req, res) {
         res.render('produtos/form')
@@ -31,10 +28,12 @@ module.exports = function (app) {
     app.post('/produtos', function (req, res) {
 
         var produto = req.body;
+        console.log(produto);
 
         var connection = app.infra.connectionFactory();
         var produtosDao = new app.infra.ProdutosDao(connection);
         produtosDao.salva(produto, function (erros, resultados) {
+            console.log(erros);
             res.redirect('/produtos');
         });
 
