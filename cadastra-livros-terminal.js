@@ -7,22 +7,21 @@ var configuracoes = {
     method: 'post',
     headers: {
         'Accept': 'application/json',
-        'Content-type': 'application/json'
+        'Content-type':'application/json'
     }
 };
 
-var client = http.request(configuracoes, function (res) {
+var client = http.request(configuracoes, function(res) {
     console.log(res.statusCode);
-    res.on('data', function (body) {
-        console.log('Corpo' + body);
+    res.on('data', function(body) {
+        console.log('Corpo: ' + body);
     });
-
 });
 
 var produto = {
     titulo: 'mais sobre node',
-    descricao: 'javascript',
-    preco: 100
-};
+    descricao: 'node, javascript e um pouco sobre http',
+    preco: '100'
+}
 
 client.end(JSON.stringify(produto));
